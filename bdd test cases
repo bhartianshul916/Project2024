@@ -1,0 +1,42 @@
+//Test cases of Bdd Gmail Compose function 
+Scenario: User successfully composes and sends an email with a valid recipient.
+Given the user is logged into Gmail
+And the compose window is open
+When the user enters a valid email address in the "To" field (recipient@example.com)
+And enters a subject (Test Subject)
+And types a body (This is a test email.)
+And clicks the "Send" button
+Then the email is sent to recipient@example.com
+And the email appears in the "Sent" folder with the correct subject and body
+Scenario: User successfully sends an email to multiple recipients.
+Given the user is logged into Gmail
+And the compose window is open
+When the user enters multiple email addresses in the "To" field (recipient1@example.com, recipient2@example.com)
+And enters a subject (Group Email Test)
+And types a body (This is a test email sent to multiple recipients.)
+And clicks the "Send" button
+Then the email is sent to both recipient1@example.com and recipient2@example.com
+And the email appears in the "Sent" folder with the correct details
+Scenario: User sends an email with CC and BCC recipients.
+Given the user is logged into Gmail
+And the compose window is open
+When the user enters recipient@example.com in the "To" field
+And enters cc@example.com in the "CC" field
+And enters bcc@example.com in the "BCC" field
+And enters a subject (CC and BCC Test)
+And types a body (This is a test email with CC and BCC.)
+And clicks the "Send" button
+Then the email is sent to recipient@example.com
+And cc@example.com is in the CC field
+And bcc@example.com is in the BCC field
+And BCC recipients are not visible to the "To" or "CC" recipients
+And the email appears in the "Sent" folder with the correct details
+Scenario: User attempts to send an email with an invalid recipient email address.
+Given the user is logged into Gmail
+And the compose window is open
+When the user enters an invalid email address (invalid-email)
+And enters a subject (Invalid Email Test)
+And types a body (This is a test with an invalid recipient.)
+And clicks the "Send" button
+Then the system displays an error message indicating the email address is invalid
+And the email is not sent
